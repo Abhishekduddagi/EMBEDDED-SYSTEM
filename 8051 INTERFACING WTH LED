@@ -1,0 +1,36 @@
+/* LED INTERFACING WITH 8051 
+* 
+*
+*-ABHISHEK DUDDAGI*/
+
+#include<reg52.h>           // special function register declarations
+                            // for the intended 8051 derivative
+
+sbit LED1 = P2^0;   
+//sbit LED2 = P2^1; // Defining LED pin to p2 port 1 pin
+
+void Delay(void);           // Function prototype declaration
+
+void main (void)
+{
+    while(1)                // infinite loop
+    {
+        LED1 = 0;            // LED ON
+        Delay();
+        LED1 = 1;            // LED OFF
+        Delay();
+			   
+    }
+}
+
+void Delay(void)
+{
+    int j;
+    int i;
+    for(i=0;i<10;i++)
+    {
+        for(j=0;j<10000;j++)
+        {
+        }
+    }
+}
