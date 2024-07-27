@@ -4,10 +4,8 @@
 *-ABHISHEK DUDDAGI*/
 
 #include<reg52.h>           // special function register declarations
-                            // for the intended 8051 derivative
-
+ 
 sbit LED1 = P2^0;   
-//sbit LED2 = P2^1; // Defining LED pin to p2 port 1 pin
 
 void Delay(void);           // Function prototype declaration
 
