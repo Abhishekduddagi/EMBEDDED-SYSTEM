@@ -1,0 +1,27 @@
+// 
+ 
+const int LED =13;
+ const int sw = 2;
+
+
+void setup() {
+  // put your setup code here, to run once:  
+pinMode(LED,OUTPUT);
+pinMode(sw,INPUT);
+
+}
+
+void loop() {
+  // put your main code here, to run repeatedly:
+  int buttonstate =0;
+ buttonstate = digitalRead(sw);
+
+if(buttonstate==HIGH)
+{
+  digitalWrite(LED,LOW);
+}
+
+else{
+  digitalWrite(LED,HIGH);
+}
+}
