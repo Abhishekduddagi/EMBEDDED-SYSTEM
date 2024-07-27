@@ -1,0 +1,23 @@
+const int RELAYTRIG =10;
+const int SW=5;
+
+void setup() {
+  // put your setup code here, to run once:
+pinMode(RELAYTRIG,OUTPUT);
+pinMode(SW,INPUT);
+}
+
+void loop() {
+  // put your main code here, to run repeatedly:
+int button =0;
+button= digitalRead(SW);
+if(button==HIGH)
+{
+digitalWrite(RELAYTRIG,HIGH);
+}
+else
+{
+digitalWrite(RELAYTRIG,LOW);
+}
+}
+
