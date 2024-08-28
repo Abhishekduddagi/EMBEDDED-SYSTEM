@@ -1,0 +1,99 @@
+#include<reg52.h>
+#include"delay.h"
+
+#define ldata P3
+
+sbit rs =P2^0;
+sbit en =P2^1;
+sbit IR =P1^0;
+
+void lcd_cmd(unsigned char a);
+void lcd_data(unsigned char b);
+void lcd_str(unsigned char *str);
+void print(unsigned int p);
+void lcd_init();
+void REPS();
+
+unsigned int q , r , s , t ;
+int count= 0;
+int VIRTUAL_INPUT =1; // GLOBAL VARIABLE 
+
+void main()
+{
+	lcd_init();
+	lcd_str(" MIT ECE STUDENT");
+	delay(10);
+	while(1)
+	{
+		if(IR == 1 && VIRTUAL_INPUT ==1)  // 	STOP AND WAIT PROTOCOL USED FOR THE LAST ISSUE
+		{
+       REPS();
+		}
+		
+	  else if(IR == 0)
+		{
+			 VIRTUAL_INPUT =1 ;  // Virtual input for condition satisfaction and calling function once
+		}
+	}
+}
+
+void REPS()
+{
+	 lcd_cmd(0xc0);
+	 lcd_str(" PUSHUPS : ");
+	 print (count);	
+	 count++;
+	 VIRTUAL_INPUT =0;
+}
+
+void print(unsigned int p) 
+{
+q = p / 1000 ;
+q = q + 48 ;
+r = ((p%1000) / 100); 
+r=r+48;
+t=(((p%1000)%100)/10); 
+t=t+48;
+s = p% 10 ;
+s=s+48;
+lcd_data(q); 
+lcd_data(r); 
+lcd_data(t); 
+lcd_data(s); 
+}
+
+void lcd_cmd(unsigned char a)
+{
+	rs=0;
+	ldata = a;  // THE COMMAND IS STORED IN A THEN SEND TO LCD USING LDATA 
+	en = 1;
+	delay(5);
+	en=0;
+	delay(5);
+}
+
+void lcd_data(unsigned char b) 
+{
+  rs= 1;
+	ldata = b; //*str single character is stored in b variable then displayed on screen through PORT3
+	en=1;
+	delay(5);
+	en=0;
+	delay(5);
+}
+	
+void lcd_str(unsigned char *str)
+{
+  while (*str)
+	{
+		lcd_data(*str++);   //*str pointer to single character 
+	}
+}
+	
+void lcd_init()
+{
+  lcd_cmd(0x38);
+	lcd_cmd(0x0c);
+	lcd_cmd(0x01);
+	lcd_cmd(0x80);
+}
